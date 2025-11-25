@@ -1,7 +1,11 @@
+
+
 //Get HTML DOM Element Refernces
 const form = document.getElementById('songForm');
 const list = document.getElementById('songList');
 const submitBtn = document.getElementById('submitBtn');
+
+
 //Get json text and convert to json object, else get empty array
 let songs = JSON.parse(localStorage.getItem('playlist')) || [];
 
@@ -35,6 +39,14 @@ function saveAndRender() {
     localStorage.setItem('playlist', JSON.stringify(songs));
     renderSongs();
    
+}
+
+function deleteSong(id) {
+    if(confirm('Are you sure?')) {
+        // Filter out the song with the matching ID
+        songs = songs.filter(song => song.id !== id);
+        saveAndRender();
+    }
 }
 
 function renderSongs() {
