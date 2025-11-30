@@ -14,18 +14,43 @@ function pageLoaded(){
     btnCalc = document.getElementById("btnCalc");
     btnCalc.addEventListener('click',()=>{calculate()});
     lblRes = document.getElementById("lblRes");
+    dropdown = document.getElementById("dropdown")
     
 }
 
 function calculate(){
     let txt1text = parseFloat(txt1.value);
     let txt2text = parseFloat(txt2.value);
-    let res = txt1text+txt2text;
+    let res = 0;
+    
+    if (dropdown.value=="+"){
+    res = txt1text+txt2text;
+    }
+    if (dropdown.value=="-"){
+    res = txt1text-txt2text;
+    }
+    if (dropdown.value=="*"){
+    res = txt1text*txt2text;
+    }
+    if (dropdown.value=="/"){
+        if(txt2text == 0){
+        res = 0;
+        }
+        else{
+        res = txt1text/txt2text;
+        }
+    }
+    
     lblRes.innerText=res;
+    let str = txt1.value + dropdown.value + txt2.value + "=" + res.toString();
+    print(str,true)
 }
-function print(msg) {
+function print(msg, toAdd) {
     const ta = document.getElementById("output");
-    if (ta) ta.value = msg;
+    if (ta) {
+        if (toAdd = false){
+            ta.value = msg;}
+        else {ta.value += ("\n" + msg)}}
     else console.log(msg);
 }
 
@@ -65,5 +90,5 @@ function demoNative() {
     const result = calc(10,20,(x,y)=>x+y);
     out += "\n[Callback] calc(10,20, x+y ) = " + result;
 
-    print(out);
+    print(out, false);
 }
